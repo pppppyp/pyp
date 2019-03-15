@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <beans>
+        <bean id="beforeAdvice" class="com.luna.Aop.BeforeAdvice"></bean>
+        <bean id="afterAdvice" class="com.luna.Aop.AfterAdvice"></bean>
+        <bean id="compareInterceptor" class="com.luna.Aop.CompareInterceptor"></bean>
+        <bean id="studenttarget" class="com.luna.Aop.StudentImpl"></bean>
+
+        <bean id="student" class="org.springframework.aop.framework.ProxyFactoryBean">
+          <property name="proxyInterfaces">
+            <value>com.luna.Aop.IStudent</value>
+          </property>
+          <property name="interceptorNames">
+            <list>
+             <value>beforeAdvice</value>
+             <value>afterAdvice</value>
+            <value>compareInterceptor</value>
+            </list>
+          </property>
+          <property name="target">
+            <ref bean="studenttarget"/>
+          </property>
+        </bean>
+    </beans>
+
+
+</beans>
